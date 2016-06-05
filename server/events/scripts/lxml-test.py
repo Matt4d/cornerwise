@@ -1,6 +1,7 @@
 from lxml import html
 import requests
 
+###
 #page = requests.get('http://somervillecityma.iqm2.com/Citizens/calendar.aspx')
 with open('calendar.aspx', 'r') as filename:
     data = filename.read()
