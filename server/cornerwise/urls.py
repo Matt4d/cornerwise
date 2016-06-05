@@ -22,6 +22,7 @@ import parcel.urls as parcel_urls
 import project.urls as project_urls
 import proposal.urls as proposal_urls
 import user.urls as user_urls
+import events.urls as events_urls
 from proposal import doc_urls
 
 from cornerwise.views import index
@@ -33,6 +34,7 @@ urlpatterns = [
     url(r'^proposal/', include(proposal_urls)),
     url(r"^doc/", include(doc_urls)),
     url(r"^user/", include(user_urls)),
+    url(r"^events/", include(events_urls)),
     url(r"^$", index)
 ]
 
