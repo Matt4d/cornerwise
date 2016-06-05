@@ -7,15 +7,12 @@ with open('calendar.aspx', 'r') as filename:
 
 
 tree = html.fromstring(data)
-dates = tree.xpath('//*[@id="ContentPlaceholder1_pnlMeetings"]/div/div[1]/div[2]/a/text()')
 titles = tree.xpath('//*[@id="ContentPlaceholder1_pnlMeetings"]/div/div[1]/div[2]/a/@title')
 
 
 y = [x.split('\r') for x in titles]
 
 for z in y:
-    print
-    print '-'*5
-    print
+    print '\n{}\n'.format('-'*5)
     for a in z:
         print a.strip()
