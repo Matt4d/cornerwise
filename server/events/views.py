@@ -5,8 +5,10 @@ import requests
 
 # Create your views here.
 def index_test(req):
-    page = requests.get('http://somervillecityma.iqm2.com/Citizens/calendar.aspx')
-    tree = html.fromstring(page.content)
+    #page = requests.get('http://somervillecityma.iqm2.com/Citizens/calendar.aspx')
+    with open('/app/events/calendar.aspx', 'r') as filename:
+        data = filename.read()
+    tree = html.fromstring(data)
     events = tree.xpath('//*[@id="ContentPlaceholder1_pnlMeetings"]/div/div[1]/div[2]/a/@title')
 
     z = []
