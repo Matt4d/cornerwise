@@ -3,21 +3,34 @@ from django.shortcuts import render
 from lxml import html
 import requests
 
-# Create your views here.
+BASE_URL = 'http://www.somervillema.gov'
+
 def index_test(req):
-    #page = requests.get('http://somervillecityma.iqm2.com/Citizens/calendar.aspx')
-    with open('/app/events/calendar.aspx', 'r') as filename:
+    with open('/app/events/test.html', 'r') as filename:
         data = filename.read()
     tree = html.fromstring(data)
-    events = tree.xpath('//*[@id="ContentPlaceholder1_pnlMeetings"]/div/div[1]/div[2]/a/@title')
 
-    z = []
+    def get_date(tr):
+        xpath = ('/html/body/center/table/tbody/tr[2]/td/table/tbody/tr[1]/td[3]'
+                 '/table/tbody/tr[2]/td[1]/div/div[3]//tbody/tr[{}]/td[1]/span/text()'.format(tr))
+        date = tree.xpath(xpath)
+        return datetime.strptime(str(date[0]), "%b %d, %Y")
 
-    # this split is required -- the list items get cut off otherwise
-    a = [b.split('\r') for b in events]
-    for c in a:
-        z.append('\n{}\n'.format('-'*5))
-        for d in c:
-            z.append(d.split())
+    def get_link(tr):
+        xpath = ('/html/body/center/table/tbody/tr[2]/td/table/tbody/tr[1]/td[3]'
+             '/table/tbody/tr[2]/td[1]/div/div[3]//tbody/tr[{}]/td[2]/a/@href'.format(tr))
+        value = tree.xpath(xpath)
+        return value
 
-    return(HttpResponse(z))
+    i = 1
+    temp = ""
+    date_time = get_date(i)
+    while date_time > datetime.now():
+        link = get_link(i)
+        temp += "Incremented! Here: {} {}".format(date_time, link)
+        temp += "New URL: {}".format(BASE_URL + link[0])
+
+        i += 1
+        date_time = get_date(i)
+    
+    return(HttpResponse(temp))
