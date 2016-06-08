@@ -3,11 +3,11 @@
 #  Edit contents of local_settings.py
 
 # Used by Google geocoder and Street View:
-GOOGLE_API_KEY = "YOUR API KEY HERE"
+GOOGLE_API_KEY = ""
 
 GEOCODER = "google"
 
-ARCGIS_CLIENT_ID = "YOUR CLIENT ID HERE"
+ARCGIS_CLIENT_ID = ""
 ARCGIS_CLIENT_SECRET = ""
 
 # Used by project and proposal importers:
